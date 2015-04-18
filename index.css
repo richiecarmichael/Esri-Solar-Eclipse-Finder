@@ -1,0 +1,150 @@
+﻿html, body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    font-family: 'Avenir Next W01 Thin', Helvetica, Arial, sans-serif;
+}
+
+#top {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    height: 50px;
+    background-color: #41434A;
+}
+
+#top-title {
+    position: absolute;
+    left: 60px;
+    top: 3px;
+    font-size: 32px;
+    color: #ffffff;
+}
+
+#top-logo-sun {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+
+}
+#top-logo-esri {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#map {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    bottom: 20px;
+    right: 0px;
+}
+
+#map svg {
+    shape-rendering: optimizeQuality;
+}
+
+#map path {
+    shape-rendering: optimizeQuality;
+    stroke-width: 0;
+}
+
+#map path:hover {
+    fill: url(#hov);
+}
+
+#bottom {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    height: 20px;
+    border-width: 0px;
+    background-color: #41434A;
+    font-size: 10pt;
+    color: #ffffff;
+}
+
+#credit {
+    text-align: center;
+}
+
+#credit a {
+    color: #ffffff;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+#window {
+    position: absolute;
+    right: 0px;
+    top: 50px;
+    bottom: 20px;
+    width: 220px;
+    background-color: #000000;
+    margin-right: -220px;
+}
+
+#window > img {
+    width: 220px;
+}
+
+#window-type {
+    font-family: 'Avenir Next W01 Thin', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    width: 220px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+#dialog-tutorial-title {
+    font-family: 'Avenir LT W01 85 Heavy', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    color: black;
+}
+
+#dialog-tutorial > div > div {
+    width: 670px;
+}
+
+.esriPopup .actionsPane {
+    background-color: #000000;
+}
+
+.esriPopup a {
+    color: #ffffff;
+}
+
+.esriPopup .titlePane {
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.esriPopup .contentPane {
+    background-color: #000000;
+}
+
+.rc-heading {
+    font-family: 'Avenir LT W01 85 Heavy', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    margin-left: 10px;
+    color: #ffffff;
+}
+
+.rc-value {
+    font-family: 'Avenir Next W01 Thin', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    margin-left: 10px;
+    color: #ffffff;
+}
+
+#window > div.rc-panel:hover {
+    background-color: olivedrab;
+}
