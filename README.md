@@ -15,4 +15,4 @@ The tapered symbol used by eclipse shadow paths is achieved using a linear gradi
 ##Conclusion
 Updating this application was a two step process.  First the eclipse dataset was republished as an AGOL hosted feature service and, second, the app was rewritten in HTML/JS.  Both tasks were relatively effortless and only took a couple of days in total.
 
-![](./solar.gif)
+![](./img/solar.gif)

@@ -24,9 +24,9 @@ html, body {
 
 #top {
     position: absolute;
-    left: 0px;
-    top: 0px;
-    right: 0px;
+    left: 0;
+    top: 0;
+    right: 0;
     height: 50px;
     background-color: #41434A;
 }
@@ -41,8 +41,8 @@ html, body {
 
 #top-logo-sun {
     position: absolute;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
 
 }
 #top-logo-esri {
@@ -54,9 +54,9 @@ html, body {
 #map {
     position: absolute;
     top: 50px;
-    left: 0px;
+    left: 0;
     bottom: 20px;
-    right: 0px;
+    right: 0;
 }
 
 #map svg {
@@ -74,11 +74,11 @@ html, body {
 
 #bottom {
     position: absolute;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
+    left: 0;
+    bottom: 0;
+    right: 0;
     height: 20px;
-    border-width: 0px;
+    border-width: 0;
     background-color: #41434A;
     font-size: 10pt;
     color: #ffffff;
@@ -96,7 +96,7 @@ html, body {
 
 #window {
     position: absolute;
-    right: 0px;
+    right: 0;
     top: 50px;
     bottom: 20px;
     width: 220px;
