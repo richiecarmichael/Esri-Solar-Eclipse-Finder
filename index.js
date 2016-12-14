@@ -38,7 +38,7 @@ function (
         'use strict';
 
         // Application constants
-        var SOLAR = 'http://services.arcgis.com/6DIQcwlPy8knb6sg/arcgis/rest/services/SolarEclipsePath/FeatureServer/0';
+        var SOLAR = 'https://services.arcgis.com/6DIQcwlPy8knb6sg/arcgis/rest/services/SolarEclipsePath/FeatureServer/0';
 
         //
         var _timer = null;
