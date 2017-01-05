@@ -124,8 +124,8 @@ html, body {
     color: black;
 }
 
-#dialog-tutorial > div > div {
-    width: 670px;
+#dialog-tutorial img {
+    width: 100%;
 }
 
 .esriPopup .actionsPane {
