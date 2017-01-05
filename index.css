@@ -43,8 +43,8 @@ html, body {
     position: absolute;
     left: 0;
     top: 0;
-
 }
+
 #top-logo-esri {
     position: absolute;
     right: 10px;
@@ -95,27 +95,38 @@ html, body {
 }
 
 #window {
+    display:none;
     position: absolute;
     right: 0;
     top: 50px;
     bottom: 20px;
-    width: 220px;
+    width: 175px;
     background-color: #000000;
-    margin-right: -220px;
+    margin-right: -175px;
 }
 
 #window > img {
-    width: 220px;
+    width: 175px;
 }
 
 #window-type {
     font-family: 'Avenir Next W01 Thin', Helvetica, Arial, sans-serif;
     font-size: 20px;
     text-align: center;
-    width: 220px;
+    width: 175px;
     margin-bottom: 10px;
     font-weight: 700;
     color: #ffffff;
+}
+
+#window-panel {
+    position: absolute;
+    right: 0;
+    top: 200px;
+    left: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #dialog-tutorial-title {
@@ -156,11 +167,11 @@ html, body {
 
 .rc-value {
     font-family: 'Avenir Next W01 Thin', Helvetica, Arial, sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     margin-left: 10px;
     color: #ffffff;
 }
 
-#window > div.rc-panel:hover {
-    background-color: olivedrab;
+.rc-panel:hover {
+    background-color: #6b8e23;
 }

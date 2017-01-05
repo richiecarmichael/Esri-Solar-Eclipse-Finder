@@ -40,50 +40,75 @@ function (
         // Application constants
         var SOLAR = 'https://services.arcgis.com/6DIQcwlPy8knb6sg/arcgis/rest/services/SolarEclipsePath/FeatureServer/0';
 
-        //
-        var _timer = null;
+        // Selected graphic
+        var _selected = null;
 
         // Show tutorial
         $('#dialog-tutorial').modal('show');
         $('#credit-howtouse').click(function () {
             $('#dialog-tutorial').modal('show');
         });
-        $('#window').mouseenter(function () {
-            stopTimer();
-        }).mouseleave(function () {
-            startTimer();
-        });
 
         // Tooltips
         $('#panel-date').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'The date the solar eclipse happened or will happen.'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'The date the solar eclipse happened or will happen.'
         });
         $('#panel-time').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'The time of day the solar eclipse happened or will happen.'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'The time of day the solar eclipse happened or will happen.'
         });
         $('#panel-duration').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'Duration at the point of greatest eclipse.'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'Duration at the point of greatest eclipse.'
         });
         $('#panel-width').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'Shadow width on the Earth\'s surface.'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'Shadow width on the Earth\'s surface.'
         });
         $('#panel-magnitude').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'The fraction of the sun that his hidden by the Earth\'s shadow. A total eclipse will have magnitude of 1 or greater.'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'The fraction of the sun that his hidden by the Earth\'s shadow. A total eclipse will have magnitude of 1 or greater.'
         });
         $('#panel-sunaltitude').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'The sun\'s altitude and azimuth in the sky.'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'The sun\'s altitude and azimuth in the sky.'
         });
         $('#panel-lunation').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'Lunation is the number for lunar month. They are numbered sequentially from an arbitrary date.'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'Lunation is the number for lunar month. They are numbered sequentially from an arbitrary date.'
         });
         $('#panel-saroscycle').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'Saros is the number for the main eclipse cycle, called the Saros cycle.'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'Saros is the number for the main eclipse cycle, called the Saros cycle.'
         });
         $('#panel-gamma').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'Gamma is the measure of whether the eclipse is centered on the equation (gamma = 0), the north pole (gamma = 1), or the south pole (gamma = -1).'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'Gamma is the measure of whether the eclipse is centered on the equation (gamma = 0), the north pole (gamma = 1), or the south pole (gamma = -1).'
         });
         $('#panel-delta').popover({
-            container: 'body', placement: 'left', trigger: 'hover', content: 'Delta-T value (in seconds) for the eclipse date. This is a correction applied because the earth\'s day is not constant, the earth\'s rotation is gradually slowing down because of tidal friction caused by the Moon.'
+            container: 'body',
+            placement: 'left',
+            trigger: 'hover',
+            content: 'Delta-T value (in seconds) for the eclipse date. This is a correction applied because the earth\'s day is not constant, the earth\'s rotation is gradually slowing down because of tidal friction caused by the Moon.'
         });
 
         // Create feature layer
@@ -112,63 +137,67 @@ function (
         _fl.on('graphic-draw', function (e) {
             d3.select(e.node)
                 .attr('fill', function () {
-                    var id = e.graphic.attributes.Date < Date.now() ? 'old' : 'new';
-                    return 'url(#{0})'.format(id);
-                })
-                .attr('fill-opacity', '1')
-                .on('mouseenter', function () {
-                    $('#window-image').attr('src', function () {
-                        switch (e.graphic.attributes.EclType) {
-                            case 'A':
-                            case 'H':
-                                return 'img/annular.jpg';
-                            case 'T':
-                                return 'img/total.jpg';
-                            default:
-                                return 'img/total.jpg';
-                        }
-                    });
-                    $('#window-type').html(function () {
-                        switch (e.graphic.attributes.EclType) {
-                            case 'A':
-                                return 'Annular Solar Eclipse';
-                            case 'H':
-                                return 'Hybrid Solar Eclipse';
-                            case 'T':
-                                return 'Total Solar Eclipse';
-                            default:
-                                return 'Solar Eclipse';
-                        }
-                    });
-                    $('#window-date').html(new Date(e.graphic.attributes.Date).toLocaleDateString());
-                    $('#window-time').html(new Date(e.graphic.attributes.TimeGE).toLocaleTimeString());
-                    $('#window-duration').html('{0} seconds'.format(e.graphic.attributes.DurationSeconds));
-                    $('#window-width').html('{0} km'.format(e.graphic.attributes.PathWid));
-                    $('#window-magnitude').html(e.graphic.attributes.EclMagn);
-                    $('#window-sunaltitude').html('{0}°/{1}°'.format(e.graphic.attributes.SunAlt, e.graphic.attributes.SunAzi));
-                    $('#window-lunation').html(e.graphic.attributes.Lunation);
-                    $('#window-saroscycle').html(e.graphic.attributes.Saro);
-                    $('#window-gamma').html(e.graphic.attributes.Gamma);
-                    $('#window-delta').html('{0} seconds'.format(e.graphic.attributes.DT));
-                    if ($('#window').css('marginRight') !== 0) {
-                        $('#window').animate({ marginRight: 0 }, {
-                            duration: 300,
-                            easing: 'swing',
-                            queue: false
-                        });
+                    var format = null;
+                    if (_selected === e.graphic) {
+                        format = 'hov';
                     }
-                    stopTimer();
-                    startTimer();
+                    else if (e.graphic.attributes.Date < Date.now()) {
+                        format = 'old';
+                    } else {
+                        format = 'new';
+                    }
+                    return 'url(#{0})'.format(format);
                 })
-                .on('touchstart', function () {
-                    d3.event.sourceEvent.stopPropagation();
-                })
-                .on('touchmove', function () {
-                    d3.event.sourceEvent.stopPropagation();
-                })
-                .on('touchend', function () {
-                    d3.event.sourceEvent.stopPropagation();
+                .attr('fill-opacity', '1');
+        });
+        _fl.on('click', function (e) {
+            $('#window-image').attr('src', function () {
+                switch (e.graphic.attributes.EclType) {
+                    case 'A':
+                    case 'H':
+                        return 'img/annular.jpg';
+                    case 'T':
+                        return 'img/total.jpg';
+                    default:
+                        return 'img/total.jpg';
+                }
+            });
+            $('#window-type').html(function () {
+                switch (e.graphic.attributes.EclType) {
+                    case 'A':
+                        return 'Annular Eclipse';
+                    case 'H':
+                        return 'Hybrid Eclipse';
+                    case 'T':
+                        return 'Total Eclipse';
+                    default:
+                        return 'Solar Eclipse';
+                }
+            });
+            $('#window-date').html(new Date(e.graphic.attributes.Date).toLocaleDateString());
+            $('#window-time').html(new Date(e.graphic.attributes.TimeGE).toLocaleTimeString());
+            $('#window-duration').html('{0} seconds'.format(e.graphic.attributes.DurationSeconds));
+            $('#window-width').html('{0} km'.format(e.graphic.attributes.PathWid));
+            $('#window-magnitude').html(e.graphic.attributes.EclMagn);
+            $('#window-sunaltitude').html('{0}°/{1}°'.format(e.graphic.attributes.SunAlt, e.graphic.attributes.SunAzi));
+            $('#window-lunation').html(e.graphic.attributes.Lunation);
+            $('#window-saroscycle').html(e.graphic.attributes.Saro);
+            $('#window-gamma').html(e.graphic.attributes.Gamma);
+            $('#window-delta').html('{0} seconds'.format(e.graphic.attributes.DT));
+            if ($('#window').css('margin-right') !== 0) {
+                $('#window').animate({ 'margin-right': 0 }, {
+                    start: function () {
+                        $(this).show()
+                    },
+                    duration: 300,
+                    easing: 'swing',
+                    queue: false
                 });
+            }
+
+            // Store selected graphic and redraw.
+            _selected = e.graphic;
+            _fl.redraw();
         });
 
         // Create pushpin layer
@@ -200,6 +229,22 @@ function (
             addLinearGradient('hov', '#0ff');
         });
         _map.on('click', function (e) {
+            // Exit if a graphic is clicked.
+            if (e.graphic) { return; }
+
+            // Clear selection
+            _selected = null;
+
+            // Hide the attribute window (if shown).
+            $('#window').animate({ 'margin-right': -175 }, {
+                duration: 300,
+                easing: 'swing',
+                queue: false,
+                complete: function () {
+                    $(this).hide();
+                }
+            });
+
             // Add pushpin at clicked location.
             _pp.clear();
             _pp.add(new Graphic(e.mapPoint));
@@ -218,27 +263,11 @@ function (
                 .attr('id', name)
                 .attr('x1', '0')
                 .attr('y1', '0.5')
-                .attr('x2', '1')
+                .attr('x2', '1.0')
                 .attr('y2', '0.5');
             o.append('stop').attr('offset', '0').attr('stop-color', color).attr('stop-opacity', '0');
             o.append('stop').attr('offset', '0.5').attr('stop-color', color).attr('stop-opacity', '1');
-            o.append('stop').attr('offset', '1').attr('stop-color', color).attr('stop-opacity', '0');
-        }
-
-        function startTimer() {
-            _timer = setTimeout(function () {
-                $('#window').animate({ marginRight: -220 }, {
-                    duration: 300,
-                    easing: 'swing',
-                    queue: false
-                });
-            }, 3000);
-        }
-        function stopTimer() {
-            if (_timer) {
-                clearTimeout(_timer);
-                _timer = null;
-            }
+            o.append('stop').attr('offset', '1.0').attr('stop-color', color).attr('stop-opacity', '0');
         }
 
         // String formating function
